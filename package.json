@@ -1,0 +1,15 @@
+{
+  "name": "newopennebula",
+  "version": "1.0.0",
+  "description": "better grade of cnv",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "barcelos and ravageiro",
+  "license": "ISC",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "opennebula": "^1.0.11"
+  }
+}
