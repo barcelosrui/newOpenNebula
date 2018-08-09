@@ -21,7 +21,7 @@ exports.saveToArray = (oldData, newData) => {
     newData = [];
     for (var i = 0; i < oldData.length; i++) {
         newData[i] = { id: oldData[i].ID, name: oldData[i].NAME };
-    };
+    }
     return newData;
 }
 

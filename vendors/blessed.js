@@ -36,6 +36,21 @@ exports.listCreateVMs = () =>{
     return list(settings.propertiesListMainMenu)
 }
 
+exports.textboxName = () =>{
+    return textbox(settings.txtBox('name',"center",2,'Name'));
+} 
+exports.textboxRAM = () =>{
+    return textbox(settings.txtBox('ram',"center",5,'RAM'));
+} 
+exports.textboxCPU = () =>{
+    return textbox(settings.txtBox('cpu',"center",8,'CPU'));
+} 
+exports.btnSubmit = () =>{
+    return button(settings.btn('submit',5,12,'Submit','green'));
+} 
+exports.btnReset = () =>{
+    return button(settings.btn('reset',35,12,'Reset','red'));
+} 
 exports.icon = () =>{
     return image(settings.propertiesIcon)
 }
@@ -46,6 +61,14 @@ exports.infoText = (text,l,t) => {
         top:t,
         content: text
       })
+}
+
+var button = (properties) =>{
+    return blessed.button(properties)
+}
+
+var textbox = (properties) =>{
+    return blessed.textbox(properties)
 }
 
 var form = (properties) =>{
