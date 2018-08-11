@@ -9,8 +9,6 @@ var settings = require("./vendors/settings");
 
 var fs = require('fs');
 
-var idsVM = [];
-
 // Create a screen object.
 var screen = blessedIL.screen();
 
@@ -48,7 +46,6 @@ listMainMenu.key('enter', function () {
     switch (opcMM) {
         case 0:
             tools.addElement(listMainMenu, listVMsBox);
-            
             break;
         case 1:
             tools.addElement(listMainMenu, listCreateVMs);
@@ -111,7 +108,7 @@ tools.back(screen, listMainMenu, listCreateVMs);
 tools.back(screen, listVMsBox, listOptVMs);
 tools.back(screen, listCreateVMs, createVMParamForm);
 // Quit on Escape, q, or Control-C.
-screen.key(['escape', 'q', 'C-c'], function (ch) {
+screen.key(['escape', 'q', 'C-c'], function () {
     return process.exit(0);
 });
 // Render the screen.
