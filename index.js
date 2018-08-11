@@ -7,12 +7,17 @@ var tools = require("./vendors/tools");
 
 var settings = require("./vendors/settings");
 
+var fs = require('fs');
+
+var idsVM = [];
+
 // Create a screen object.
 var screen = blessedIL.screen();
 
 var mainMenu = blessedIL.mainMenu();
 var listMainMenu = blessedIL.listMainMenu();
 var listVMsBox = blessedIL.listVMsBox();
+var listOptVMs = blessedIL.listOptVMs();
 var listCreateVMs = blessedIL.listCreateVMs();
 var createVMParamForm = blessedIL.createVMParamForm();
 var txtboxname = blessedIL.textboxName();
@@ -30,6 +35,7 @@ opennebulaIL.vms(screen, listVMsBox);
 
 listMainMenu.setItems(settings.mainMenu);
 listCreateVMs.setItems(settings.createMenu);
+listOptVMs.setItems(settings.selectVMMenu.map(x => x.name));
 
 // Append our box mainMenu to the screen.
 tools.addElement(screen, mainMenu);
@@ -42,6 +48,7 @@ listMainMenu.key('enter', function () {
     switch (opcMM) {
         case 0:
             tools.addElement(listMainMenu, listVMsBox);
+            
             break;
         case 1:
             tools.addElement(listMainMenu, listCreateVMs);
@@ -49,6 +56,21 @@ listMainMenu.key('enter', function () {
     }
     screen.render();
 });
+var vmOPC = 0;
+listVMsBox.key('enter', function () {
+    vmOPC = listVMsBox.getItemIndex(listVMsBox.selected);
+    tools.addElement(listVMsBox,listOptVMs);
+    screen.render();
+});
+
+listOptVMs.key('enter', () =>{
+    var opc = listOptVMs.getItemIndex(listOptVMs.selected);
+    fs.readFile('tmp/ids.txt','utf8', (err, data) => {
+        if (err) throw err;
+        opennebulaIL.liveCycle(parseInt(data.split(",")[vmOPC]),settings.selectVMMenu.map(x => x.cmd)[opc],listVMsBox);
+    });
+});
+
 
 listCreateVMs.key('enter', function () {
     //
@@ -61,18 +83,13 @@ listCreateVMs.key('enter', function () {
         case 1:
             tools.addElement(listCreateVMs,createVMParamForm);
             tools.addText(createVMParamForm,settings.infoCreate);
-            createVMParamForm.append(txtboxname);
-            createVMParamForm.append(txtboxram);
-            createVMParamForm.append(txtboxcpu);
-            createVMParamForm.append(btnSubmit);
-            createVMParamForm.append(btnReset);
-
-           
+            var appends = new Array(txtboxname,txtboxram,txtboxcpu,btnSubmit,btnReset);
+            for (let index = 0; index < appends.length; index++) {
+                createVMParamForm.append(appends[index]);
+            }
             break;
     }
-    
     screen.render();
-
 });
 
 btnSubmit.on('press', function () {
@@ -91,11 +108,11 @@ createVMParamForm.on('reset', function () {
 
 tools.back(screen, listMainMenu, listVMsBox);
 tools.back(screen, listMainMenu, listCreateVMs);
+tools.back(screen, listVMsBox, listOptVMs);
 tools.back(screen, listCreateVMs, createVMParamForm);
 // Quit on Escape, q, or Control-C.
 screen.key(['escape', 'q', 'C-c'], function (ch) {
     return process.exit(0);
 });
-
 // Render the screen.
 screen.render();

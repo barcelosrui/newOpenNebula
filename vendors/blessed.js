@@ -1,41 +1,29 @@
+//library Blessed
 var blessed = require('blessed');
-
-var fs = require('fs');
-
+//internal Settings
 var settings = require('./settings');
-
-exports.test = () => {
-    console.log("BLESSED")
-}
-
+// Create a screen object.
 exports.screen = () => {
-    // Create a screen object.
-    return blessed.screen(
-        {
-            smartCSR: true,
-            title: 'Exame de Melhoria CNV'
-        }
-    );
+    return blessed.screen(settings.propertiesScreen);
 }
-
 exports.mainMenu = () =>{
     return box(settings.propertiesMainMenu)
 }
-
 exports.createVMParamForm = () =>{
     return form(settings.propertiesFormCreateVM);
 }
 exports.listMainMenu = () =>{
     return list(settings.propertiesListMainMenu)
 }
-
 exports.listVMsBox = () =>{
+    return list(settings.propertiesListMainMenu)
+}
+exports.listOptVMs = () =>{
     return list(settings.propertiesListMainMenu)
 }
 exports.listCreateVMs = () =>{
     return list(settings.propertiesListMainMenu)
 }
-
 exports.textboxName = () =>{
     return textbox(settings.txtBox('name',"center",2,'Name'));
 } 
@@ -54,7 +42,6 @@ exports.btnReset = () =>{
 exports.icon = () =>{
     return image(settings.propertiesIcon)
 }
-
 exports.infoText = (text,l,t) => {
     return new blessed.Text({  
         left: l,
@@ -62,27 +49,21 @@ exports.infoText = (text,l,t) => {
         content: text
       })
 }
-
 var button = (properties) =>{
     return blessed.button(properties)
 }
-
 var textbox = (properties) =>{
     return blessed.textbox(properties)
 }
-
 var form = (properties) =>{
     return blessed.form(properties)
 }
-
 var list = (properties) =>{
     return blessed.list(properties)
 }
-
 var box = (properties) =>{
     return blessed.box(properties)
 }
-
 var image = (properties) =>{
     return blessed.image(properties)
 }

@@ -17,6 +17,15 @@ exports.mainMenu = [
     'Criar VM'
 ];
 
+exports.selectVMMenu = [
+    { name: "Iniciar", cmd: "resume" },
+    { name: "Reiniciar (normal)", cmd: "reboot" },
+    { name: "Reiniciar (forçado)", cmd: "reboot_hard" },
+    { name: "Desligar (normal)", cmd: "poweroff" },
+    { name: "Desligar (forçado)", cmd: "poweroff_hard" },
+    { name: "Destruir (normal)", cmd: "terminate" }
+];
+
 exports.createMenu = [
     'Criar VM',
     'Criar VM parameterizada'
@@ -84,6 +93,11 @@ exports.propertiesFormCreateVM = {
     },
     keys: true,
     vi: true
+}
+
+exports.propertiesScreen = {
+    smartCSR: true,
+    title: 'Exame de Melhoria CNV'
 }
 
 exports.txtBox = (name, l, t, content) => {
