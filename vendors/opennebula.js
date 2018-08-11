@@ -45,7 +45,8 @@ exports.createVM = (name, ram, cpu) => {
     var vma = 'CONTEXT = [  NETWORK = "YES", SSH_PUBLIC_KEY = "root[SSH_PUBLIC_KEY]" ] \n CPU = "' + (cpu || 0.1) + '"\n  MEMORY = "' + (ram || 128) + '"\n NIC = [ NETWORK = "cloud" ]\n';
     var template = one.getTemplate(0);
     template.instantiate(name, undefined, vma, function (err, vm) {
-
+        console.log(vm.id)
+        if(err) throw err;
     });
 }
 
